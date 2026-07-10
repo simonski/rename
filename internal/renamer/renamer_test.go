@@ -124,18 +124,20 @@ func TestPreservesFileMode(t *testing.T) {
 
 func TestTypoReplacer(t *testing.T) {
 	r := Typos()
+	// Misspelled inputs are split into fragments for the same reason as the
+	// table in typos.go: so `rename -typo` on this repo can't fix the fixtures.
 	tests := []struct {
 		in, want string
 		count    int
 	}{
-		{"the cat", "the cat", 1},
-		{"The cat", "The cat", 1},
-		{"THE CAT", "THE CAT", 1},
-		{"thee cat", "the cat", 1},
-		{"you should fix this", "you should fix this", 1},
-		{"i received the mail", "i received the mail", 2},
-		{"tether", "tether", 0},          // no mid-word matches
-		{"path/to/the/file", "path/to/the/file", 1},
+		{"te" + "h cat", "the cat", 1},
+		{"Te" + "h cat", "The cat", 1},
+		{"TE" + "H CAT", "THE CAT", 1},
+		{"te" + "he cat", "the cat", 1},
+		{"you sho" + "udl fix this", "you should fix this", 1},
+		{"i rec" + "ieved te" + "h mail", "i received the mail", 2},
+		{"tether", "tether", 0}, // no mid-word matches
+		{"path/to/te" + "h/file", "path/to/the/file", 1},
 		{"nothing wrong", "nothing wrong", 0},
 	}
 	for _, tt := range tests {
@@ -149,7 +151,7 @@ func TestTypoReplacer(t *testing.T) {
 func TestTypoRunOnTree(t *testing.T) {
 	dir := t.TempDir()
 	a := filepath.Join(dir, "doc.md")
-	writeFile(t, a, "The plan: we should definitely ship tomorrow.")
+	writeFile(t, a, "Te"+"h plan: we sho"+"udl defin"+"ately ship tomm"+"orow.")
 
 	res, err := Run([]string{dir}, Typos(), Options{})
 	if err != nil {

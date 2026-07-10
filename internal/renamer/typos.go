@@ -9,47 +9,55 @@ import (
 
 // typos maps common misspellings (lowercase) to their corrections.
 // Matching is case-insensitive on word boundaries and the correction
-// preserves the case shape of the match (the→the, The→The, THE→THE).
+// preserves the case shape of the match: all-caps stays all-caps and a
+// leading capital is kept.
+//
+// The misspelled keys are deliberately split into concatenated fragments so
+// that running `rename -typo` over this repository cannot "correct" its own
+// table — that would collapse entries into duplicate map keys and break the
+// build. Word-boundary matching never sees the full misspelling in a
+// fragment, so this file is immune.
 var typos = map[string]string{
-	"accommodate": "accommodate",
-	"across":    "across",
-	"and":        "and",
-	"because":    "because",
-	"believe":    "believe",
-	"calendar":   "calendar",
-	"could":      "could",
-	"definitely": "definitely",
-	"environment": "environment",
-	"friend":     "friend",
-	"the":        "the",
-	"necessary": "necessary",
-	"necessary":   "necessary",
-	"occurred":    "occurred",
-	"occurrence":  "occurrence",
-	"publicly": "publicly",
-	"receive":    "receive",
-	"received":   "received",
-	"recommend":  "recommend",
-	"separate":   "separate",
-	"should":     "should",
-	"successful":  "successful",
-	"successful":  "successful",
-	"that":       "that",
-	"the":        "the",
-	"thee":       "the",
-	"their":      "their",
-	"tomorrow":   "tomorrow",
-	"until":     "until",
-	"what":       "what",
-	"which":      "which",
-	"which":       "which",
-	"weird":      "weird",
-	"would":      "would",
+	"acco" + "modate": "accommodate",
+	"acc" + "ross":    "across",
+	"a" + "dn":        "and",
+	"bec" + "uase":    "because",
+	"bel" + "eive":    "believe",
+	"cal" + "ender":   "calendar",
+	"cou" + "dl":      "could",
+	"defin" + "ately": "definitely",
+	"envi" + "roment": "environment",
+	"fre" + "ind":     "friend",
+	"h" + "te":        "the",
+	"necc" + "essary": "necessary",
+	"nec" + "esary":   "necessary",
+	"occ" + "ured":    "occurred",
+	"occu" + "rence":  "occurrence",
+	"public" + "ally": "publicly",
+	"rec" + "ieve":    "receive",
+	"rec" + "ieved":   "received",
+	"recc" + "omend":  "recommend",
+	"sep" + "erate":   "separate",
+	"sho" + "udl":     "should",
+	"succ" + "esful":  "successful",
+	"suc" + "essful":  "successful",
+	"ta" + "ht":       "that",
+	"te" + "h":        "the",
+	"te" + "he":       "the",
+	"th" + "ier":      "their",
+	"tomm" + "orow":   "tomorrow",
+	"unt" + "ill":     "until",
+	"wa" + "ht":       "what",
+	"wh" + "cih":      "which",
+	"wi" + "ch":       "which",
+	"wi" + "erd":      "weird",
+	"wou" + "dl":      "would",
 }
 
 // Typos returns a Replacer that fixes the built-in list of common typos.
 func Typos() Replacer {
-	// Longer typos first so e.g. "thee" wins over "the".
+	// Longer misspellings first, so the longest match wins when one
+	// misspelling is a prefix of another.
 	words := make([]string, 0, len(typos))
 	for w := range typos {
 		words = append(words, w)

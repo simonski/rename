@@ -1,6 +1,6 @@
 // rename is a Go reimplementation of rename.sh: recursive in-place
 // search/replace over the files in a directory tree, plus a -typo mode that
-// fixes common misspellings (the, thee, should, ...).
+// fixes common misspellings (run `rename -typos` for the list).
 package main
 
 import (
@@ -25,7 +25,7 @@ func usage(out *os.File) {
 
 Usage:
   rename [flags] <search> <replace> [path ...]   replace literal text in files
-  rename -typo [flags] [path ...]                fix common typos (the, should, ...)
+  rename -typo [flags] [path ...]                fix common typos (see -typos for the list)
   rename -typos                                  list the known typo corrections
   rename version                                 print the version
 

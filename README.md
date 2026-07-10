@@ -24,7 +24,7 @@ rename oldname newname
 # Restrict to specific paths (files or directories)
 rename oldname newname src/ docs/README.md
 
-# Fix common typos (the -> the, should -> should, definitely -> definitely, ...)
+# Fix common misspellings of the, should, definitely, receive, ... (see: rename -typos)
 rename -typo
 rename -typo docs/
 
@@ -39,7 +39,8 @@ rename -typos
 Directories are walked recursively. Binary files and `.git`, `.hg`, `.svn`
 and `node_modules` directories are skipped. Typo matching is on word
 boundaries and case-insensitive, and corrections preserve the case shape of
-the match (`The` → `The`, `THE` → `THE`).
+the match: lowercase stays lowercase, a leading capital is kept, and
+all-caps stays all-caps.
 
 ## Development
 
