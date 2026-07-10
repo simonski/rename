@@ -3,30 +3,30 @@
 class Rename < Formula
   desc "Recursive in-place search/replace with a typo-fixing mode"
   homepage "https://github.com/simonski/rename"
-  version "0.1.2"
+  version "0.1.3"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.2/rename_0.1.2_darwin_arm64.tar.gz"
-      sha256 "f06c9eb1d87eeda195969c9c9ad0e3aca27c514ccf43226697538e26206dd128"
+      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.3/rename_0.1.3_darwin_arm64.tar.gz"
+      sha256 "6c9e73a50be723aa90679a548f8c799d0ed25e34bb459aba96cd287f954a1f95"
     end
 
     on_intel do
-      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.2/rename_0.1.2_darwin_amd64.tar.gz"
-      sha256 "b249ab3623a16a459baface36a41ffd13c4d760f5b708f051375ac2de55cee49"
+      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.3/rename_0.1.3_darwin_amd64.tar.gz"
+      sha256 "97aa45c9ba5e0ebb956880e1b6fdd747d2f7d949b14ae5a71c997cf0f72cf543"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.2/rename_0.1.2_linux_arm64.tar.gz"
-      sha256 "191dabffba90b0c36cafc5e5cc8b7f43e9677a40f6d4c3d3c028fa0c930ad9ff"
+      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.3/rename_0.1.3_linux_arm64.tar.gz"
+      sha256 "b592cd1cbb67f0a4108caef0cec55544fbbb7316ef5b70e978bd8cfbd44d9214"
     end
 
     on_intel do
-      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.2/rename_0.1.2_linux_amd64.tar.gz"
-      sha256 "af50be63444b81fa94f112b46deb527b05861299befe7055fbc9dba5f4b6e1bb"
+      url "https://github.com/simonski/homebrew-tap/releases/download/rename-v0.1.3/rename_0.1.3_linux_amd64.tar.gz"
+      sha256 "90a54a910b7922efb15c1ca6338edbbc918794d0464180f3201b6607f8e573a1"
     end
   end
 
@@ -35,6 +35,6 @@ class Rename < Formula
   end
 
   test do
-    assert_match "0.1.2", shell_output("#{bin}/rename version")
+    assert_match "0.1.3", shell_output("#{bin}/rename version")
   end
 end
