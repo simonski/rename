@@ -52,6 +52,7 @@ var typos = map[string]string{
 	"wi" + "ch":       "which",
 	"wi" + "erd":      "weird",
 	"wou" + "dl":      "would",
+	"yu" + "o":        "you",
 }
 
 // Typos returns a Replacer that fixes the built-in list of common typos.
